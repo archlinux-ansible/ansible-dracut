@@ -1,0 +1,17 @@
+---
+
+dracut__conf_dir: /etc/dracut.conf.d
+dracut__conf_file: 10_ansible.conf
+dracut__main_conf: /etc/dracut.conf
+
+dracut__initrd_cmd: dracut -fv
+
+dracut__manage: yes
+dracut__manage_path: "{{ (dracut__conf_dir, dracut__conf_file) | path_join }}"
+dracut__manage_message: |
+  Any changes here will be overridden.
+  Ansible will delete all dracut configuration not managed by Ansible.
+  All configuration is stored under {{ dracut__manage_path }}
+dracut__conf:
+  hostonly: 'yes'
+  compress: zstd

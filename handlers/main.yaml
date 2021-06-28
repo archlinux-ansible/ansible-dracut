@@ -1,0 +1,4 @@
+---
+
+- name: Regenerate initramfs
+  shell: "{{ dracut__initrd_cmd }}"

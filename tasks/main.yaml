@@ -1,0 +1,23 @@
+---
+
+- name: Delete config not managed by Ansible
+  command: "find {{ dracut__conf_dir }} -type f -not -name {{ dracut__conf_file }} -delete -print"
+  notify: Regenerate initramfs
+  register: dracut_deleted
+  changed_when: dracut_deleted.stdout | length > 0
+  when: 
+    - dracut__manage
+
+- name: Set dracut config
+  template:
+    src: "{{ item.template }}"
+    dest: "{{ item.name }}"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Regenerate initramfs
+  loop:
+    - name: "{{ dracut__main_conf }}"
+      template: dracut.conf.j2
+    - name: "{{ dracut__manage_path }}"
+      template: 10_ansible.conf.j2

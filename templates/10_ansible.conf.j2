@@ -1,0 +1,3 @@
+{{ ansible_managed | comment }}
+{{ dracut__manage_message | comment | default('') }}
+{{ dracut__conf | encode_ini(delimiter='=', quote='"') }}
