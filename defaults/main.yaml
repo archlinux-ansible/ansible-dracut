@@ -8,6 +8,8 @@ dracut__initrd_cmd: dracut -fv --uefi
 
 dracut__manage: yes
 dracut__manage_path: "{{ (dracut__conf_dir, dracut__conf_file) | path_join }}"
+dracut__manage_ignore:
+  - 'cmdline.conf'
 dracut__manage_message: |
   Any changes here will be overridden.
   Ansible will delete all dracut configuration not managed by Ansible.
